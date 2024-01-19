@@ -9,11 +9,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/function"
 	"github.com/hashicorp/terraform-plugin-framework/internal/fwschema"
+	"github.com/hashicorp/terraform-plugin-framework/provider"
 )
 
 // GetProviderSchemaRequest is the framework server request for the
 // GetProviderSchema RPC.
-type GetProviderSchemaRequest struct{}
+type GetProviderSchemaRequest struct {
+	Is_get_config_tree bool
+}
 
 // GetProviderSchemaResponse is the framework server response for the
 // GetProviderSchema RPC.
@@ -31,7 +34,7 @@ type GetProviderSchemaResponse struct {
 func (s *Server) GetProviderSchema(ctx context.Context, req *GetProviderSchemaRequest, resp *GetProviderSchemaResponse) {
 	resp.ServerCapabilities = s.ServerCapabilities()
 
-	providerSchema, diags := s.ProviderSchema(ctx)
+	providerSchema, diags := s.ProviderSchema(ctx, provider.SchemaRequest{Is_get_config_tree: req.Is_get_config_tree})
 
 	resp.Diagnostics.Append(diags...)
 

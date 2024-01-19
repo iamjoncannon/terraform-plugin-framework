@@ -338,7 +338,7 @@ func (s *Server) ProviderTypeName(ctx context.Context) string {
 
 // ProviderSchema returns the Schema associated with the Provider. The Schema
 // and Diagnostics are cached on first use.
-func (s *Server) ProviderSchema(ctx context.Context) (fwschema.Schema, diag.Diagnostics) {
+func (s *Server) ProviderSchema(ctx context.Context, schemaReq provider.SchemaRequest) (fwschema.Schema, diag.Diagnostics) {
 	logging.FrameworkTrace(ctx, "Checking ProviderSchema lock")
 	s.providerSchemaMutex.Lock()
 	defer s.providerSchemaMutex.Unlock()
@@ -347,7 +347,6 @@ func (s *Server) ProviderSchema(ctx context.Context) (fwschema.Schema, diag.Diag
 		return s.providerSchema, s.providerSchemaDiags
 	}
 
-	schemaReq := provider.SchemaRequest{}
 	schemaResp := provider.SchemaResponse{}
 
 	logging.FrameworkTrace(ctx, "Calling provider defined Provider Schema")

@@ -17,7 +17,7 @@ func GetProviderSchemaRequest(ctx context.Context, proto6 *tfprotov6.GetProvider
 		return nil
 	}
 
-	fw := &fwserver.GetProviderSchemaRequest{}
+	fw := &fwserver.GetProviderSchemaRequest{Is_get_config_tree: proto6.Is_get_config_tree}
 
 	return fw
 }

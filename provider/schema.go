@@ -11,7 +11,9 @@ import (
 // SchemaRequest represents a request for the Provider to return its schema.
 // An instance of this request struct is supplied as an argument to the
 // Provider type Schema method.
-type SchemaRequest struct{}
+type SchemaRequest struct {
+	Is_get_config_tree bool
+}
 
 // SchemaResponse represents a response to a SchemaRequest. An instance of this
 // response struct is supplied as an argument to the Provider type Schema

@@ -20,7 +20,7 @@ func (s *Server) ConfigureProvider(ctx context.Context, proto6Req *tfprotov6.Con
 
 	fwResp := &provider.ConfigureResponse{}
 
-	providerSchema, diags := s.FrameworkServer.ProviderSchema(ctx)
+	providerSchema, diags := s.FrameworkServer.ProviderSchema(ctx, provider.SchemaRequest{})
 
 	fwResp.Diagnostics.Append(diags...)
 

@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/internal/fwserver"
 	"github.com/hashicorp/terraform-plugin-framework/internal/logging"
 	"github.com/hashicorp/terraform-plugin-framework/internal/toproto5"
+	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-go/tfprotov5"
 )
 
@@ -20,7 +21,7 @@ func (s *Server) PrepareProviderConfig(ctx context.Context, proto5Req *tfprotov5
 
 	fwResp := &fwserver.ValidateProviderConfigResponse{}
 
-	providerSchema, diags := s.FrameworkServer.ProviderSchema(ctx)
+	providerSchema, diags := s.FrameworkServer.ProviderSchema(ctx, provider.SchemaRequest{})
 
 	fwResp.Diagnostics.Append(diags...)
 
